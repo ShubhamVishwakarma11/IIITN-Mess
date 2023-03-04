@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const app = express();
 const bcrypt = require('bcrypt');
 const session = require('express-session');
+const dotenv = require('dotenv')
 
 const Notice = require('./models/notice');
 const Complaints = require('./models/complaint');
@@ -14,7 +15,9 @@ const User = require('./models/user');
 const Menu = require('./models/menu');
 const methodOverride = require('method-override');
 
-mongoose.connect('mongodb://0.0.0.0:27017/Mess');
+dotenv.config()
+
+mongoose.connect(process.env.MONGO_URI);
 var db = mongoose.connection;
 db.on('error', console.log.bind(console, "connection error"));
 db.once('open', function(callback) {
@@ -253,6 +256,6 @@ app.post('/login', async (req, res) => {
     }
 })
 
-app.listen(3000, function() {
-    console.log("server listening at port 3000");
+app.listen(5000, function() {
+    console.log("server listening at port 5000");
 });
